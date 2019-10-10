@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <title>Message Board</title>
+</head>
+
+<body>
+    <div class="container p-2">
+        <div class="container">
+            <% JSON.stringify(messages) %>
+            <h1 class="border-bottom">The Dojo Message Board</h1>
+            <div id="msg-form">
+                <form action="/postblog" method="POST">
+                    <div class="form-group">
+                        <label for="creator">Name:</label>
+                        <input class="form-control col-4" type="text" name="creator" id="creator">
+                        <% if(messages.creator) { %>
+                        <small class="text-danger d-block"><%= messages.creator %></small>
+                        <% } %>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea class="form-control" name="message" id="message" cols="30" rows="3"></textarea>
+                        <% if(messages.message) { %>
+                        <small class="text-danger d-block"><%= messages.message %></small>
+                        <% } %>
+                    </div>
+                    <button type="submit" class="btn btn-primary float-right">Post message</button>
+                </form>
+            </div>
+            <div id="messages" class="mt-5">
+                <% for(blog of blogs) { %>
+                <div class="container">
+                    <h5>Name: <%=blog.creator%></h5>
+                    <h5>Message: <%=blog.message%></h5>
+                    <% for(var post of blog.posts) {%>
+                    <div class="container ml-3 mt-3" id="comments">
+                        <h6>Name: <%=post.commenter%></h6>
+                        <h6>Comment: <%=post.content%></h6>
+                    </div>
+                    <% } %>
+                    <div id="comment-form">
+                        <form action="/postcomment/<%=blog_id%>" method="POST">
+                            <div class="form-group">
+                                <label for="commenter">commenter:</label>
+                                <input class="form-control col-4" type="text" name="commenter" id="commenter">
+                                <% if(messages.commenter) { %>
+                                <small class="text-danger d-block"><%= messages.commenter %></small>
+                                <% } %>
+                            </div>
+                            <div class="form-group">
+                                <label for="comment">Comment:</label>
+                                <textarea class="form-control" name="content" id="content" cols="30"
+                                    rows="2"></textarea>
+                                <% if(messages.content) { %>
+                                <small class="text-danger d-block"><%= messages.content %></small>
+                                <% } %>
+                            </div>
+                            <button type="submit" class="btn btn-primary float-right">Post comment</button>
+                        </form>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var socket = io();
+            socket.on('updated_message', function (data) {
+                $('.user').html(`You emitted the following information to the server; ${data.users}. `);
+                $('.lucky').html(`Your Lucky number is ${data.number}.`);
+                console.log(data.msg);
+            });
+            $('button').click(function () {
+
+                var postData = {
+                    name: $('#name').val(),
+                    location: $('#location').val(),
+                    lang: $('#lang').val(),
+                    comment: $('#comment').val()
+                };
+                socket.emit('posting_form', { post: postData });
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="container">
+            <p class="user"></p>
+            <p class="lucky"></p>
+        </div>
+        <div class="container">
+
+            <div class="form-group">
+                Your name:<input class="form-control" type='text' name='name' id="name">
+            </div>
+            <div class="form-group">
+                Dojo Location:<select class="form-control" name='location' id="location">
+                    <option value="mountain view">Mountain View</option>
+                    <option value="San Jose">San Jose</option>
+                    <option value="Burbank">Burbank</option>
+                    <option value="Berkeley">Berkeley</option>
+                </select>
+            </div>
+            <div class="form-group">
+                Favorite language:
+                <select class="form-control" name='language' id="language">
+                    <option value="Java">Java</option>
+                    <option value="Python">Python</option>
+                    <option value="JS">JS</option>
+                    <option value="Ruby">Ruby</option>
+                </select>
+            </div>
+            <div class="form-group">
+                Comment:<input class="form-control" type='text' name='comment' id="comment">
+            </div>
+            <button class="btn btn-primary">Submit</button>
+
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

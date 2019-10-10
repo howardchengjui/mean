@@ -1,0 +1,93 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<html>
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<body>
+  <div class="container">
+    <h1>
+      Restful Task API
+    </h1>
+    <button (click)="getAllTasks()" class="btn btn-secondary">Get tasks</button>
+    <!-- <button (click)="getBulbasaur()">Get Pokemon</button>
+  <button (click)="getPokesWithSameAbilities()">Get Pokemon With Same Abilities</button> -->
+    <table class="table">
+      <tr>
+        <th>Title</th>
+        <th>action</th>
+      </tr>
+
+      <tr *ngFor="let task of tasks">
+        <td>{{ task.title }}</td>
+        <td><button (click)="getOneTask(task._id)">show</button> <button
+            (click)="deleteThisTask(task._id)">delete</button> <button (click)="editThisTask(task._id)">edit</button>
+        </td>
+      </tr>
+    </table>
+
+
+
+    <!-- <div> -->
+    <!-- <p>{{bulbasaur.name}}'s abilities are:{{bulbasaur.abilities[0].ability.name}} and {{bulbasaur.abilities[1].ability.name}}</p>
+  <div *ngFor="let pokemon of pokeswithsameabil">
+    <h3>Pokemons with same abilities:{{pokemon.name}}</h3> -->
+    <!-- </div> -->
+
+
+    <!-- <h5>Description: {{TaskToShow.description}}</h5> -->
+    <div class="root">
+      <!-- tip: use css to place a border around your different components to better visualize them -->
+      <app-task *ngIf='selectedTask' [TaskToShow]='selectedTask'>
+
+      </app-task> <!-- use the selector of the task component to nest it within the root component -->
+    </div>
+
+
+
+    <form (submit)="updateThisTask()">
+      <h1>Edit a task</h1>
+      <!-- use the json pipe to see how newTask changes in real time -->
+      <p> {{ editTask | json }} </p>
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input class="form-control" type="text" name="editTask.title" [(ngModel)]="editTask.title" />
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <input class="form-control" type="text" name="editTask.description" [(ngModel)]="editTask.description" />
+      </div>
+      <div class="form-group">
+        <input class="btn btn-primary" type="submit" value="Create Task" />
+      </div>
+    </form>
+
+    <form (submit)="onSubmit()">
+      <h1>Create a task</h1>
+      <!-- use the json pipe to see how newTask changes in real time -->
+      <p> {{ newTask | json }} </p>
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input class="form-control" type="text" name="newTask.title" [(ngModel)]="newTask.title" />
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <input class="form-control" type="text" name="newTask.description" [(ngModel)]="newTask.description" />
+      </div>
+      <div class="form-group">
+        <input class="btn btn-danger" type="submit" value="Create Task" />
+      </div>
+    </form>
+
+
+
+  </div>
+</body>
+<router-outlet></router-outlet>
+
+</html>

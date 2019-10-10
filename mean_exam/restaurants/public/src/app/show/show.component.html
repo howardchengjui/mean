@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <p>Reviews for {{restaurant.name}}</p>
+        <a class="btn btn-success" [routerLink]="['/review/'+restaurant._id]">New Review</a>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Customer</th>
+                <th scope="col">Stars</th>
+                <th scope="col">Description</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let review of reviews">
+              <tr>
+                <td>{{review.name}}</td>
+                <td>{{review.star}}</td>
+                <td>{{review.content}}</td>
+              </tr>
+
+            </tbody>
+          </table>
+    </div>
+</body>
+</html>

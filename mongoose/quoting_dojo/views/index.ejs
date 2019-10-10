@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="container">
+            <h1>Welcome to QuotingDojo</h1>
+        </div>
+        <% JSON.stringify(messages) %> 
+
+        <div class="container">
+                
+            <div class="form-group">
+                <form action="/process" method="post">
+                    <% if(messages.quoted_by) { %>
+                         <h3><%= messages.quoted_by %></h3>
+                    <% } %>
+                Your name:<input class="form-control" type='text' name='quoted_by' id="quoted_by">
+            </div>
+            <div class="form-group">
+                    <% if(messages.comment) { %>
+                        <h3><%= messages.comment %></h3>
+                   <% } %>
+                Quote:<input class="form-control" type='text' name='comment' id="comment">
+            </div>
+            <button type="submit">Add my quote</button>
+            <a href="/quotes">Skip to quotes</a>
+        </form>
+        </div>
+    </div>
+</body>
+
+</html>
